@@ -4,10 +4,10 @@ from db.database import Base
 
 class User(Base):
 
-    __tablename__ = "user"
+    __tablename__ = "users"
     id = Column(Integer , primary_key=True , index=True)
-    email = Column(String , index=True)
-    password = Column(String)
+    email = Column(String ,unique=True, index=True , nullable=False)
+    password = Column(String , nullable=False)
     is_active = Column(Boolean , default=True)
     mess = relationship("Message" , back_populates="owner")
 

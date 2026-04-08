@@ -19,13 +19,13 @@ def get_user_message(db: Session, message_id: int, user_id: int):
     return message
 
 def get_message(current_user : int , db:Session):
-    mess = db.query(Message).filter(Message.owner_id == current_user).order_by(Message.id.desc()).all()
-    return mess
+    data = db.query(Message).filter(Message.owner_id == current_user).order_by(Message.id.desc()).all()
+    return data
 
 
 def create_message(current_user : int , message:MessageReq , db : Session):
     new_mess = Message(
-        mess = message.mess,
+        message = message.message,
         owner_id = current_user
     )
     db.add(new_mess)
@@ -34,8 +34,8 @@ def create_message(current_user : int , message:MessageReq , db : Session):
     return new_mess
 
 def edit_message(current_user:int , message_id : int , message:MessageReq , db : Session):
-    old_message = get_user_message(db, message_id, current_user)
-    old_message.mess = message.mess
+    old_message = get_user_message(db , message_id , current_user)
+    old_message.message = message.message
     db.commit()
     db.refresh(old_message)
     return old_message

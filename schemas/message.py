@@ -1,14 +1,14 @@
 from pydantic import BaseModel
 
 class MessageReq(BaseModel):
-    mess : str
+    message : str
 
 class Completed(BaseModel):
     is_completed : bool
 
 class MessageRes(BaseModel):
     id : int
-    mess : str
+    message : str
     is_completed : bool
 
     class Config:

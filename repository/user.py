@@ -8,8 +8,8 @@ from core.config import settings
 
 
 def create_account(user : Auth , db : Session)->dict:
-    old_user = db.query(User).filter(User.email == user.email).first()
-    if old_user and old_user.is_active:
+    old_user = db.query(User).filter(User.email == user.email , User.is_active == False).first()
+    if old_user :
         raise HTTPException(status_code=status.HTTP_409_CONFLICT , detail="User already exist")
     hash_pass = hash_password(user.password)
     new_user = User(
